@@ -4,15 +4,16 @@
     - [Defining positive & negative classes](#defining-positive--negative-classes)
     - [Baseline model](#baseline-model)
 - [Top-level results](#top-level-results)
-- [Navigating this repo](#navigating-repo)
+- [Navigating this repo](#navigating-this-repo)
 - [Exploring and cleaning data](#exploring-and-cleaning-data)
     - [Missing `selftext`](#missing-selftext)
 - [Transformers](#transformers)
-    - [PorterStemmer](#porterstemmer)
     - [Vectorizing data](#vectorizing-data)
-- [Data dictionary](#data-dictionary)
-- [Modeling](#modeling)
+- [Testing models](#testing-models)
+    - [GridSearch](#gridsearch)
 - [Interpreting results](#interpreting-results)
+- [Words in mis-classified posts](#words-in-mis-classified-posts)
+- [Future work](#future-work)
 
 
 ## Problem statement
@@ -81,6 +82,8 @@ As described above, these three subreddits were frustratingly idle. In addition,
 - Where `selftext` was empty, I copied the `title` field into `selftext` and used that instead.
 - Where `selftext` was not empty, `title` was not used in the model.
 
+[return to top](#classifying-reddit-posts)
+
 ## Transformers
 
 ### Words in the positive class
@@ -101,6 +104,7 @@ I created a custom list of stop-words to test in the pipeline/modeling step, bas
 - special characters like `x200b` (a "zero-width space" [source](https://www.codetable.net/hex/200b))
 
 [return to top](#classifying-reddit-posts) --- jump to [words in mis-classified posts](#words-in-mis-classified-posts)
+
 
 ## Testing models
 I tested eight pipelines and models:
@@ -131,6 +135,8 @@ See the [model_trials](/notebooks/model_trials.ipynb) notebook for this code.
 #### Scores for all nine models
 ![all models' scores](/images/nine_models_scores.png)
 
+[return to top](#classifying-reddit-posts)
+
 ## Interpreting results
 The MultinomialNB model was the best performer with both types of vectorizers and the version that included the ADASYN over-sampler had the highest recall score of any model.
 
@@ -149,6 +155,7 @@ Looking at this chart, I thought maybe the fact that over 87% of the words in th
 
 Both vectorizers discarded words that were in too few or too many posts so it's possible that accounts for the difference.
 
+[return to top](#classifying-reddit-posts)
 
 ## Future work
 - For the models that used the highest value I included in the grid-search params, run the grid search again with higher values. For example, the LogisticRegression models that were most successful had `C=10`, when the other options I tried were `C=1.0` and `C=0.1`.
