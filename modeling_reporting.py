@@ -15,7 +15,6 @@ CUSTOM_STOPS = ["https", "did", "does", "just", "like", "question", "space", "kn
                 "youtube", "wiki"] 
 
 
-# TODO: docstrings & type hints
 def store_metrics(X_test: pd.DataFrame, y_test: pd.Series, scores_df: pd.DataFrame, model, label: str) -> pd.DataFrame:
     """
     took this from lesson 2.14
